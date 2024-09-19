@@ -1,0 +1,7 @@
+{
+  "name": "sso",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
