@@ -1,0 +1,16 @@
+{
+    "client_id": "57ca81bc-7cac-4a46-931b-994a2afa05ac",
+    "authorization_user_agent": "WEBVIEW",
+    "redirect_uri": "msauth://io.ionic.starter/M61nf%2BaC69kCXmFY1ejcX83rDNc%3D",
+    "broker_redirect_uri_registered": true,
+    "account_mode": "SINGLE",
+    "authorities": [
+      {
+        "type": "AAD",
+        "audience": {
+          "type": "AzureADandPersonalMicrosoftAccount",
+          "tenant_id": "common"
+        }
+      }
+    ]
+  }
