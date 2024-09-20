@@ -1,7 +1,8 @@
 {
   "name": "sso",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }
