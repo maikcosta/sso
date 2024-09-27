@@ -1,20 +1,41 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      POC - SSO Microsoft
-    </ion-title>
+    <ion-title>Seja Bem-vindo</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Bem-vindo</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-card class="ion-padding">
+    <ion-card-header>
+      <ion-card-title>Dados do Usuário</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-avatar class="ion-margin-bottom">
+        <ion-img [src]="user?.imageUrl"></ion-img>
+      </ion-avatar>
+
+      <h2>{{ user?.name }}</h2>
+      <p><strong>Email:</strong> {{ user?.email }}</p>
+      <p><strong>Nome:</strong> {{ user?.givenName }} {{ user?.familyName }}</p>
+      <p><strong>ID:</strong> {{ user?.id }}</p>
+
+      <!-- Dados de autenticação -->
+      <p><strong>Access Token:</strong></p>
+      <p class="token-box">{{ user?.authentication?.accessToken }}</p>
+
+      <p><strong>ID Token:</strong></p>
+      <p class="token-box">{{ user?.authentication?.idToken }}</p>
+      
+      <p><strong>Refresh Token:</strong></p>
+      <p class="token-box">{{ user?.authentication?.refreshToken || 'Não disponível' }}</p>
+
+    </ion-card-content>
+  </ion-card>
 </ion-content>
