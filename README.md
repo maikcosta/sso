@@ -23,12 +23,13 @@ Selecionar Angular
 Defina o nome do projeto
 
 ## Testando o projeto ionic
+```
 ionic serve 
-
+```
 
 # Google
 
-WEB
+## WEB
 
 ![Auth-SSO-Google](https://github.com/user-attachments/assets/4830b471-d232-458d-9f2f-75152e37fc17)
 
@@ -198,5 +199,6 @@ Fonte: https://www.npmjs.com/package/@codetrix-studio/capacitor-google-auth
 
 Vídeos: 
 https://www.youtube.com/watch?v=_BmbLZdJks8
+
 https://www.youtube.com/watch?v=GwtpoWZ_78E
 
