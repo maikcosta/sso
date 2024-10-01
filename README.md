@@ -97,11 +97,21 @@ ionic g service service/auth
 ```
 npm i --save @codetrix-studio/capacitor-google-auth
 ```
-## Atualização das dependencias do capacitor
+
+## Sincronizando alterações 
+
+Para sincronizar as mudanças feitas no código-fonte web (pasta www) ou nas configurações do projeto (como capacitor.config.json) com as plataformas nativas (Android, iOS).
 ```
 npx cap update
 ```
-
+## Comando executado para copiar
+```
+ionic capacitor copy android
+```
+## Abrir projeto no android studio
+```
+npx cap open android
+```
 
 ## Ajustar o arquivo de auth.service.ts
 
@@ -153,7 +163,9 @@ plugins: {
 ```
 
 ## Criar arquivos para build android
+```
 ionic cap add android
+```
 
 ## Ajustar classe MainActivity.java em "android\app\src\main\java\io\ionic\pocsso\MainActivity.java"
 ```
@@ -190,11 +202,6 @@ Nome projeto: Single Sign-on
 Client ID web: 446483931548-lbcv2a5409vsp068ci9oss5mtr67atva.apps.googleusercontent.com
 
 
-## Comando executado para copiar
-ionic capacitor copy android
-
-## Abrir projeto no android studio
-npx cap open android
 
 Fonte: https://www.npmjs.com/package/@codetrix-studio/capacitor-google-auth
 
