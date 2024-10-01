@@ -52,23 +52,31 @@ Copiar o endereço do ClientID
 
 
 ## Criar página login
+
+```
 ionic g pages login
+```
 
 ## Ajustar redirecionamento em app-routing.module.ts
+```
 {
 	path: '',
 	redirectTo: 'login',
 	pathMatch: 'full'  // Redireciona para a página de login quando a rota é vazia
 },
-
+```
 
 ## Criar botão no login.page.html
+
+```
   <ion-button expand="full" (click)="loginWithGoogle()">
 	<ion-icon name="logo-google"></ion-icon>
 	Login com Google
   </ion-button>
-## Criar função em login.page.ts
+```
 
+## Criar função em login.page.ts
+```
   async loginWithGoogle(){
     this.user = await this.authService.googleSignIn()
     console.log(this.user)
@@ -76,22 +84,25 @@ ionic g pages login
       this.router.navigate(['/home'])
     }
   }
-  
+```  
 ## Criar serviço de autenticação
-
+```
 ionic g service service/auth
-  
+ ``` 
 
 ## Instalação do pacote codetrixstudio
+```
 npm i --save @codetrix-studio/capacitor-google-auth
-
+```
 ## Atualização das dependencias do capacitor
+```
 npx cap update
-
+```
 
 
 ## Ajustar o arquivo de auth.service.ts
 
+```
 import { Injectable } from '@angular/core';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { Platform, isPlatform } from '@ionic/angular';
@@ -117,10 +128,11 @@ export class AuthService {
     return await this.user;
   }
 }
-
+```
 
 ## Adicionar no capacitor.config.ts configurações do plugin GoogleAuth
 
+```
 plugins: {
     GoogleAuth: {
       scopes: ['profile', 'email'],
@@ -128,16 +140,20 @@ plugins: {
       forceCodeForRefreshToken: true,
     },
   },
+```
 
 ## Adicionar meta tags no index.html
+
+```
 <meta name="google-signin-client_id" content="80325311987-i5b75sjlgp9sgfjn38ob4ga95snmuo8g.apps.googleusercontent.com" />
 <meta name="google-signin-scope" content="profile email" />
+```
 
 ## Criar arquivos para build android
 ionic cap add android
 
 ## Ajustar classe MainActivity.java em "android\app\src\main\java\io\ionic\pocsso\MainActivity.java"
-
+```
 package io.ionic.starter;
 import android.os.Bundle;
 import com.getcapacitor.BridgeActivity;
@@ -151,10 +167,10 @@ public class MainActivity extends BridgeActivity {
         registerPlugin(GoogleAuth.class);
     }
 }
-
+```
 
 ## Ajustar string.xml em "android\app\src\main\res\values\strings.xml"
-
+```
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">sso</string>
@@ -163,9 +179,11 @@ public class MainActivity extends BridgeActivity {
     <string name="custom_url_scheme">io.ionic.starter</string>
     <string name="server_client_id">80325311987-i5b75sjlgp9sgfjn38ob4ga95snmuo8g.apps.googleusercontent.com</string>
 </resources>
-
+```
 ## Configuração projeto Google Console
+
 Nome projeto: Single Sign-on
+
 Client ID web: 446483931548-lbcv2a5409vsp068ci9oss5mtr67atva.apps.googleusercontent.com
 
 
@@ -176,6 +194,8 @@ ionic capacitor copy android
 npx cap open android
 
 Fonte: https://www.npmjs.com/package/@codetrix-studio/capacitor-google-auth
+
+
 Vídeos: 
 https://www.youtube.com/watch?v=_BmbLZdJks8
 https://www.youtube.com/watch?v=GwtpoWZ_78E
