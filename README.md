@@ -13,8 +13,10 @@ Cordova 12.0.0 (cordova-lib@12.0.1)
 ## Dependencies
 
 ### Microsoft
+```
 "@azure/msal-angular": "^3.0.23",
 "@azure/msal-browser": "^3.23.0",
+```
 
 # Criando projeto IONIC
 
@@ -198,7 +200,10 @@ Fonte: https://www.npmjs.com/package/@codetrix-studio/capacitor-google-auth
 
 
 Vídeos: 
+How to add Google SignIn to your Ionic 7 App
 https://www.youtube.com/watch?v=_BmbLZdJks8
 
+
+How to add Google Sign In using Capacitor to your Ionic App
 https://www.youtube.com/watch?v=GwtpoWZ_78E
 
