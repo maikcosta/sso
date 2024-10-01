@@ -16,21 +16,6 @@ Cordova 12.0.0 (cordova-lib@12.0.1)
 "@azure/msal-angular": "^3.0.23",
 "@azure/msal-browser": "^3.23.0",
 
-### Google
-"@capacitor/android": "^6.1.2",
-"@codetrix-studio/capacitor-google-auth": "^3.4.0-rc.4"
-
-
-### Check-packages 
-$ npm -g ls --depth=0
-
-├── @angular/cli@18.2.5
-├── @ionic/cli@7.2.0
-├── cordova@12.0.0
-└── native-run@2.0.1 
-
-
-
 # Criando projeto IONIC
 
 ionic start 
@@ -41,8 +26,25 @@ Defina o nome do projeto
 ionic serve 
 
 
-
 # Google
+
+
+## Criar projeto Google Console
+https://console.cloud.google.com/
+Será necessário antes da criação da credencial preencher a tela de consentimento com alguns dados são eles;
+-Preencher com os dados da aplicação
+-Inserir e-mail de suporte
+-Liberar o escopo de visualização
+-Depois das etapas acima publicar o app para produção!
+
+### Criando credencias
+Em API's & Serviços>Credenciais>Criar uma nova credencial OAuth ClientId
+Selecionar o tipo de aplicação -> Android
+Para extrair a informação do SHA-1 utilizei o comando abaixo, funcional no git-bash:
+keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
+
+Copiar o endereço do ClientID
+
 
 ## Criar página login
 ionic g pages login
@@ -81,19 +83,6 @@ npm i --save @codetrix-studio/capacitor-google-auth
 ## Atualização das dependencias do capacitor
 npx cap update
 
-## Criar projeto Google Console
-https://console.cloud.google.com/
-Será necessário antes da criação da credencial preencher a tela de consentimento com alguns dados são eles;
--Preencher com os dados da aplicação
--Inserir e-mail de suporte
--Liberar o escopo de visualização
--Depois das etapas acima publicar o app para produção!
-
-### Criando credencias
-Em API's & Serviços>Credenciais>Criar uma nova credencial OAuth ClientId
-Selecionar o tipo de aplicação -> Android
-
-Copiar o endereço do ClientID
 
 
 ## Ajustar o arquivo de auth.service.ts
@@ -136,7 +125,7 @@ plugins: {
   },
 
 ## Adicionar meta tags no index.html
-<meta name="google-signin-client_id" content="{your client id here}" />
+<meta name="google-signin-client_id" content="80325311987-i5b75sjlgp9sgfjn38ob4ga95snmuo8g.apps.googleusercontent.com" />
 <meta name="google-signin-scope" content="profile email" />
 
 ## Criar arquivos para build android
@@ -144,8 +133,8 @@ ionic cap add android
 
 ## Ajustar classe MainActivity.java em "android\app\src\main\java\io\ionic\pocsso\MainActivity.java"
 
-package io.ionic.pocsso;
-import android.ps.Budle;
+package io.ionic.starter;
+import android.os.Bundle;
 import com.getcapacitor.BridgeActivity;
 import com.codetrixstudio.capacitor.GoogleAuth.GoogleAuth;
 import com.getcapacitor.BridgeActivity;
@@ -165,12 +154,24 @@ public class MainActivity extends BridgeActivity {
 <resources>
     <string name="app_name">sso</string>
     <string name="title_activity_main">sso</string>
-    <string name="package_name">io.ionic.pocsso</string>
-    <string name="custom_url_scheme">io.ionic.pocsso</string>
-    <string name="server_client_id">80325311987-dmmdj7tl2n63rn58e535fjrg6tec9l8a.apps.googleusercontent.com</string>
+    <string name="package_name">io.ionic.starter</string>
+    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="server_client_id">80325311987-i5b75sjlgp9sgfjn38ob4ga95snmuo8g.apps.googleusercontent.com</string>
 </resources>
 
+## Configuração projeto Google Console
+Nome projeto: Single Sign-on
+Client ID web: 446483931548-lbcv2a5409vsp068ci9oss5mtr67atva.apps.googleusercontent.com
 
+
+## Comando executado para copiar
+ionic capacitor copy android
+
+## Abrir projeto no android studio
+npx cap open android
 
 Fonte: https://www.npmjs.com/package/@codetrix-studio/capacitor-google-auth
-Vídeo: https://www.youtube.com/watch?v=_BmbLZdJks8
+Vídeos: 
+https://www.youtube.com/watch?v=_BmbLZdJks8
+https://www.youtube.com/watch?v=GwtpoWZ_78E
+
