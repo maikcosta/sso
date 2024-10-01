@@ -28,6 +28,11 @@ ionic serve
 
 # Google
 
+WEB
+
+![Auth-SSO-Google](https://github.com/user-attachments/assets/4830b471-d232-458d-9f2f-75152e37fc17)
+
+
 
 ## Criar projeto Google Console
 https://console.cloud.google.com/
