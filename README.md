@@ -46,11 +46,16 @@ Será necessário antes da criação da credencial preencher a tela de consentim
 -Depois das etapas acima publicar o app para produção!
 
 ### Criando credencias
+
+![Credenciais-Android](https://github.com/user-attachments/assets/c4a96088-3a1c-4a45-a87d-456e01ca900b)
+
+
 Em API's & Serviços>Credenciais>Criar uma nova credencial OAuth ClientId
 Selecionar o tipo de aplicação -> Android
 Para extrair a informação do SHA-1 utilizei o comando abaixo, funcional no git-bash:
+```
 keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
-
+```
 Copiar o endereço do ClientID
 
 
