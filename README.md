@@ -46,11 +46,16 @@ Será necessário antes da criação da credencial preencher a tela de consentim
 -Depois das etapas acima publicar o app para produção!
 
 ### Criando credencias
+
+![Credenciais-Android](https://github.com/user-attachments/assets/c4a96088-3a1c-4a45-a87d-456e01ca900b)
+
+
 Em API's & Serviços>Credenciais>Criar uma nova credencial OAuth ClientId
 Selecionar o tipo de aplicação -> Android
 Para extrair a informação do SHA-1 utilizei o comando abaixo, funcional no git-bash:
+```
 keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
-
+```
 Copiar o endereço do ClientID
 
 
@@ -97,11 +102,21 @@ ionic g service service/auth
 ```
 npm i --save @codetrix-studio/capacitor-google-auth
 ```
-## Atualização das dependencias do capacitor
+
+## Sincronizando alterações 
+
+Para sincronizar as mudanças feitas no código-fonte web (pasta www) ou nas configurações do projeto (como capacitor.config.json) com as plataformas nativas (Android, iOS).
 ```
 npx cap update
 ```
-
+## Comando executado para copiar
+```
+ionic capacitor copy android
+```
+## Abrir projeto no android studio
+```
+npx cap open android
+```
 
 ## Ajustar o arquivo de auth.service.ts
 
@@ -153,7 +168,9 @@ plugins: {
 ```
 
 ## Criar arquivos para build android
+```
 ionic cap add android
+```
 
 ## Ajustar classe MainActivity.java em "android\app\src\main\java\io\ionic\pocsso\MainActivity.java"
 ```
@@ -190,11 +207,6 @@ Nome projeto: Single Sign-on
 Client ID web: 446483931548-lbcv2a5409vsp068ci9oss5mtr67atva.apps.googleusercontent.com
 
 
-## Comando executado para copiar
-ionic capacitor copy android
-
-## Abrir projeto no android studio
-npx cap open android
 
 Fonte: https://www.npmjs.com/package/@codetrix-studio/capacitor-google-auth
 
