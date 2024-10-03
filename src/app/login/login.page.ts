@@ -9,27 +9,32 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  user:any
+  user:any = null;
   constructor(private msalService: MsalService, private authService:AuthService, private router:Router) { }
 
   ngOnInit() {
   }
 
   async loginWithMicrosoft() {
+    console.log('Info user ->', this.user);
     try {
       const result = await this.msalService.instance.handleRedirectPromise();
   
       if (result) {
-        console.log('Redicionamento com sucesso!', result);
+        console.log('Redirecionamento com sucesso!', result);
+        this.authService.microsoftSignIn(result.account); // Salva os dados do Microsoft
+        this.router.navigate(['/home']);
       } else {
-        const accounts = this.msalService.instance.getAllAccounts();
-        if (accounts.length === 0) {
+        const user = this.msalService.instance.getAllAccounts();
+        if (user.length === 0) {
           this.msalService.loginRedirect({
             scopes: ['user.read'],
             extraQueryParameters: { useEmbeddedWebView: 'true' }
           });
         } else {
-          console.log('Usuário já está logado:', accounts);
+          console.log('Usuário já está logado:', user);
+          this.authService.microsoftSignIn(user[0]); // Se já estiver logado, salva os dados
+          this.router.navigate(['/home']);
         }
       }
     } catch (error) {

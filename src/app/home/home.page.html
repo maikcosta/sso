@@ -1,17 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Seja Bem-vindo</ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="primary">
       <ion-button (click)="refresh()">
         <ion-icon name="refresh-outline"></ion-icon>
       </ion-button>
-      <ion-button (click)="singOut()">
+      <ion-button (click)="signOut()">
         <ion-icon name="log-out-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
@@ -27,24 +26,39 @@
 
     <ion-card-content>
       <ion-avatar class="ion-margin-bottom">
-        <ion-img [src]="user?.imageUrl"></ion-img>
+        <ion-img [src]="user?.imageUrl || 'assets/default-avatar.png'"></ion-img>
       </ion-avatar>
 
-      <h2>{{ user?.name }}</h2>
-      <p><strong>Email:</strong> {{ user?.email }}</p>
-      <p><strong>Nome:</strong> {{ user?.givenName }} {{ user?.familyName }}</p>
-      <p><strong>ID:</strong> {{ user?.id }}</p>
-
-      <!-- Dados de autenticação -->
-      <p><strong>Access Token:</strong></p>
-      <p class="token-box">{{ user?.authentication?.accessToken }}</p>
-
-      <p><strong>ID Token:</strong></p>
-      <p class="token-box">{{ user?.authentication?.idToken }}</p>
+      <!-- Exibição dos dados comuns para Google e Microsoft -->
+      <h2>{{ user?.name || user?.idTokenClaims?.name }}</h2>
+      <p><strong>Email:</strong> {{ user?.email || user?.username }}</p>
       
-      <p><strong>Refresh Token:</strong></p>
-      <p class="token-box">{{ user?.authentication?.refreshToken || 'Não disponível' }}</p>
+      <!-- Exibição dos dados do Google -->
+      <div *ngIf="authService.isGoogleAuthenticated()">
+        <p><strong>Nome:</strong> {{ user?.givenName }} {{ user?.familyName }}</p>
+        <p><strong>ID:</strong> {{ user?.id }}</p>
 
+        <p><strong>Access Token:</strong></p>
+        <p class="token-box">{{ user?.authentication?.accessToken }}</p>
+
+        <p><strong>ID Token:</strong></p>
+        <p class="token-box">{{ user?.authentication?.idToken }}</p>
+        
+        <p><strong>Refresh Token:</strong></p>
+        <p class="token-box">{{ user?.authentication?.refreshToken || 'Não disponível' }}</p>
+      </div>
+
+      <!-- Exibição dos dados da Microsoft -->
+      <div *ngIf="authService.isMicrosoftAuthenticated()">
+        <p><strong>Tenant ID:</strong> {{ user?.tenantId }}</p>
+        <p><strong>Local Account ID:</strong> {{ user?.localAccountId }}</p>
+        
+        <p><strong>ID Token Claims:</strong></p>
+        <p class="token-box">{{ user?.idTokenClaims?.aud }}</p>
+        
+        <p><strong>Access Token:</strong></p>
+        <p class="token-box">{{ user?.idToken }}</p>
+      </div>
     </ion-card-content>
   </ion-card>
 </ion-content>
