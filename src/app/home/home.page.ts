@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { MsalService } from '@azure/msal-angular';
 import { ToastController } from '@ionic/angular';
 
 @Component({
@@ -11,7 +12,7 @@ import { ToastController } from '@ionic/angular';
 })
 export class HomePage {
   user : any
-  constructor(private authService:AuthService, private router:Router,private toastController: ToastController) {
+  constructor(public authService:AuthService, private msalService:MsalService, private router:Router,private toastController: ToastController) {
     this.user = authService.user
   }
 
@@ -22,20 +23,41 @@ export class HomePage {
   }
 
   async refresh() {
-    try {
-      const authCode = await GoogleAuth.refresh();
-      console.log('Refresh AuthCode:', authCode);
-      this.presentToast('Autenticação atualizada com sucesso!');
-    } catch (error) {
-      console.error('Erro ao atualizar autenticação:', error);
-      this.presentToast('Falha ao atualizar a autenticação.');
+    if (this.authService.isGoogleAuthenticated()) {
+      try {
+        const authCode = await GoogleAuth.refresh();
+        console.log('Refresh AuthCode (Google):', authCode);
+        this.presentToast('Autenticação do Google atualizada com sucesso!');
+      } catch (error) {
+        console.error('Erro ao atualizar autenticação Google:', error);
+        this.presentToast('Falha ao atualizar a autenticação do Google.');
+      }
+    } else if (this.authService.isMicrosoftAuthenticated()) {
+      try {
+        const account = this.msalService.instance.getAllAccounts()[0];
+        if (account) {
+          // Opcional: Aqui você poderia buscar um novo token, se necessário.
+          console.log('Microsoft Account:', account);
+          this.presentToast('Autenticação da Microsoft atualizada com sucesso!');
+        }
+      } catch (error) {
+        console.error('Erro ao atualizar autenticação Microsoft:', error);
+        this.presentToast('Falha ao atualizar a autenticação da Microsoft.');
+      }
     }
   }
 
-  async singOut(){
-    await GoogleAuth.signOut();
+  async signOut() {
+    if (this.authService.isGoogleAuthenticated()) {
+      await GoogleAuth.signOut();
+    } else if (this.authService.isMicrosoftAuthenticated()) {
+      await this.msalService.logout;
+      localStorage.clear();
+      sessionStorage.clear();
+    }
+
     this.user = null;
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
   }
 
   async presentToast(message: string) {
