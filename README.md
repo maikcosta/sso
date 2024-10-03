@@ -35,6 +35,9 @@ ionic serve
 
 ![Auth-SSO-Google](https://github.com/user-attachments/assets/4830b471-d232-458d-9f2f-75152e37fc17)
 
+## Mobile
+
+![Android-SSO-Google](https://github.com/user-attachments/assets/0eb1c209-a6bd-4e7e-9757-fbd170a152a5)
 
 
 ## Criar projeto Google Console
@@ -154,7 +157,7 @@ export class AuthService {
 plugins: {
     GoogleAuth: {
       scopes: ['profile', 'email'],
-      serverClientId: '80325311987-i5b75sjlgp9sgfjn38ob4ga95snmuo8g.apps.googleusercontent.com',
+      serverClientId: '446483931548-lbcv2a5409vsp068ci9oss5mtr67atva.apps.googleusercontent.com',
       forceCodeForRefreshToken: true,
     },
   },
@@ -163,7 +166,7 @@ plugins: {
 ## Adicionar meta tags no index.html
 
 ```
-<meta name="google-signin-client_id" content="80325311987-i5b75sjlgp9sgfjn38ob4ga95snmuo8g.apps.googleusercontent.com" />
+<meta name="google-signin-client_id" content="446483931548-lbcv2a5409vsp068ci9oss5mtr67atva.apps.googleusercontent.com" />
 <meta name="google-signin-scope" content="profile email" />
 ```
 
@@ -197,7 +200,7 @@ public class MainActivity extends BridgeActivity {
     <string name="title_activity_main">sso</string>
     <string name="package_name">io.ionic.starter</string>
     <string name="custom_url_scheme">io.ionic.starter</string>
-    <string name="server_client_id">80325311987-i5b75sjlgp9sgfjn38ob4ga95snmuo8g.apps.googleusercontent.com</string>
+    <string name="server_client_id">446483931548-lbcv2a5409vsp068ci9oss5mtr67atva.apps.googleusercontent.com</string>
 </resources>
 ```
 ## Configuração projeto Google Console
