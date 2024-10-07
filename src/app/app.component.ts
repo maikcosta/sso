@@ -1,27 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { MsalService } from '@azure/msal-angular';
-import { Router } from '@angular/router'; // Importe o Router
-
+import { Component } from '@angular/core';
+import { Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   constructor(
-    private msalService: MsalService,
-    private router: Router) {}
+    private platform: Platform,
+    private router: Router,
+    private storage: Storage
+  ) {
+    this.initializeApp();
+  }
 
-  ngOnInit() {
-    this.msalService.handleRedirectObservable().subscribe({
-      next: (result) => {
-        console.log('Login result:', result);
-        //this.router.navigate(['/home']);
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
+  async initializeApp() {
+    await this.platform.ready();
+
+    // Inicialize o Storage
+    await this.storage.create();
+
   }
 }

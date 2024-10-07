@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
-import { MsalService } from '@azure/msal-angular';
 import { ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +12,7 @@ import { ToastController } from '@ionic/angular';
 })
 export class HomePage {
   user : any
-  constructor(public authService:AuthService, private msalService:MsalService, private router:Router,private toastController: ToastController) {
+  constructor(public authService:AuthService, private storage: Storage, private router:Router,private toastController: ToastController) {
     this.user = authService.user
   }
 
@@ -34,7 +34,7 @@ export class HomePage {
       }
     } else if (this.authService.isMicrosoftAuthenticated()) {
       try {
-        const account = this.msalService.instance.getAllAccounts()[0];
+        const account = await this.storage.get('userInfo');
         if (account) {
           // Opcional: Aqui você poderia buscar um novo token, se necessário.
           console.log('Microsoft Account:', account);
@@ -51,7 +51,7 @@ export class HomePage {
     if (this.authService.isGoogleAuthenticated()) {
       await GoogleAuth.signOut();
     } else if (this.authService.isMicrosoftAuthenticated()) {
-      await this.msalService.logout;
+      await this.storage.clear;
       localStorage.clear();
       sessionStorage.clear();
     }

@@ -14,7 +14,11 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },  {
+    path: 'process-auth',
+    loadChildren: () => import('./process-auth/process-auth.module').then( m => m.ProcessAuthPageModule)
   }
+
 ];
 
 @NgModule({

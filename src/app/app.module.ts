@@ -1,46 +1,21 @@
-import { NgModule } from '@angular/core';
+// src/app/app.module.ts
+
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicModule } from '@ionic/angular';
-import { AppRoutingModule } from './app-routing.module';
+import { RouteReuseStrategy } from '@angular/router';
+
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
-import { MsalModule, MsalGuardConfiguration, MsalInterceptorConfiguration, MSAL_INSTANCE, MSAL_GUARD_CONFIG, MSAL_INTERCEPTOR_CONFIG, MsalService } from '@azure/msal-angular';
-import { IPublicClientApplication, PublicClientApplication, InteractionType } from '@azure/msal-browser';
-import { environment } from 'src/environments/environment';
+import { AppRoutingModule } from './app-routing.module';
 
-// Função para configurar o MSAL
-export function MSALInstanceFactory(): IPublicClientApplication {
-  return new PublicClientApplication({
-    auth: {
-      clientId: environment.msal.clientId,
-      authority: environment.msal.authority,
-      redirectUri: environment.msal.redirectUri
-    },
-    cache: {
-      cacheLocation: 'localStorage',
-      storeAuthStateInCookie: true
-    }
-  });
-}
+// Importar o IonicStorageModule
+import { IonicStorageModule } from '@ionic/storage-angular';
 
-// Configuração da guarda de rota
-export function MSALGuardConfigFactory(): MsalGuardConfiguration {
-  return {
-    interactionType: InteractionType.Redirect, // Pode usar Popup se preferir
-    authRequest: {
-      scopes: ['user.read']
-    }
-  };
-}
+// Importar o InAppBrowser
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
-// Configuração do interceptor HTTP
-export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
-  return {
-    interactionType: InteractionType.Redirect, // Pode usar Popup se preferir
-    protectedResourceMap: new Map([
-      ['https://graph.microsoft.com/v1.0/me', ['user.read']]
-    ])
-  };
-}
+// Importa o HTTP Provider
+import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -48,23 +23,14 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    MsalModule.forRoot(MSALInstanceFactory(), MSALGuardConfigFactory(), MSALInterceptorConfigFactory()) // Chame as funções aqui
+    IonicStorageModule.forRoot(),
   ],
   providers: [
-    {
-      provide: MSAL_INSTANCE,
-      useFactory: MSALInstanceFactory
-    },
-    {
-      provide: MSAL_GUARD_CONFIG,
-      useFactory: MSALGuardConfigFactory
-    },
-    {
-      provide: MSAL_INTERCEPTOR_CONFIG,
-      useFactory: MSALInterceptorConfigFactory
-    },
-    MsalService
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    InAppBrowser,
+    HTTP,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
